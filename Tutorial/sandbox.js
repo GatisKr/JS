@@ -655,3 +655,188 @@
 
     console.log(html_23);
     ul.innerHTML = html_23;  // put array elements to html
+
+
+// OBJECTS
+
+// LESSON-24 Object literals
+
+    let user_24 = {
+        name: 'crystal',
+        age: 30,
+        email: 'crystal@thenetninja.co.uk',
+        location: 'berlin',
+        blogs: ['why mac & cheese rules', '10 things to make with marmite']
+    };
+
+
+    console.log(user_24);
+    console.log(user_24.name);      // 'crystal'
+    console.log(user_24.age);       // the user age is '30'
+
+    user_24.age = 35;
+    console.log(user_24.age);       // now the user age is '35'
+
+    console.log(user_24['name']);   // 'crystal'
+
+    user_24['name'] = 'chun-li';
+    console.log(user_24['name']);   // now the name is 'chun-li'
+
+    const age_24 = user_24['age']
+    console.log(age_24)
+
+    console.log(typeof user_24);
+    console.log(user_24);           // all new values are stored within the object
+
+
+// LESSON-25. Object methods
+
+    let user_25 = {
+        name: 'crystal',
+        age: 30,
+        email: 'crystal@thenetninja.co.uk',
+        location: 'berlin',
+        blogs: ['why mac & cheese rules', '10 things to make with marmite'],
+        
+        login: function(){
+            console.log('the user logged in');
+        },
+
+        logout(){      
+            console.log('the user logged out');
+        },
+
+        // A short way to write a regular function (short-hand version). This is not an arrow function, so we can still use 'this' keyword here.
+
+        getEmail(){
+            console.log(this.email);
+        },
+
+        logBlogs(){
+            console.log(this);
+            // console.log(this.blogs_24);
+            console.log('this user has written the following blogs:');
+            this.blogs.forEach(blog => {
+                console.log(blog);
+            })
+        }
+    };
+
+
+    user_25.login();
+    user_25.logout();
+
+    const justAName = 'mario';
+    justAName.toUpperCase();
+    console.log(justAName);
+
+    
+    // 'this' keyword is a context object and it represents the context in which the current code is executed. Depending on where and how we use it, its value is going to be different. 
+
+    // If we use 'this' inside of the root of the document, then it's going to refer to the global context which is called the window object. 
+    console.log(this);
+
+    // If we 'console.log(this)' inside 'logBlogs' function, then this refers to the 'user_24' object. JS sets the value of the 'this' keyword to be the object the method was used on, in this case the 'user_24' object.
+    user_25.logBlogs();
+
+    // Arrow functions work differently with the 'this' keyword. If 'logBlogs' would hold an arrow function, then it wouldn't work. When we use a normal function as a method and invoke that method, JS set the value of the 'this' keyword to thew object, that the method was used on. Inside the function therefore we can use that this keyword to refer to the object itself. When we use an arrow function here instead to create the method like 'logBlogs: () => {', JS will NOT set the value of the 'this' keyword to be the object. When we use arrow functions the value of 'this' does not change from the value it was at the point in the code that the arrow function was invoked. So here it was called at a point when the value of this is the global window object.
+
+    // In order to use 'this' inside a method to refer to the actual object that the method is on, we need to use a regular function and not an arrow function.
+
+    user_25.getEmail(); // Ref.to line 707
+
+
+// LESSON-26 Storing objects in array instead of strings
+
+// We can store strings, numbers, booleans inside array. And we can also store objects inside arrays.
+
+    const blogs_26 = [
+        { title: 'why mac & cheese rules', likes: 30 },
+        { title: '10 things to make with marmite', likes: 50 }
+    ];
+
+    console.log(blogs_26);
+
+
+    let user_26 = {
+        name: 'crystal',
+        age: 30,
+        email: 'crystal@thenetninja.co.uk',
+        location: 'berlin',
+        blogs: [
+            { title: 'why mac & cheese rules', likes: 30 },
+            { title: '10 things to make with marmite', likes: 50 }
+        ],
+        
+        login: function(){
+            console.log('the user logged in');
+        },
+        logout(){      
+            console.log('the user logged out');
+        },
+        getEmail(){
+            console.log(this.email);
+        },
+        logBlogs(){
+            console.log('this user has written the following blogs:');
+            this.blogs.forEach(blog => {
+                console.log(blog.title, blog.likes);
+            })
+        }
+    };
+
+    user_26.logBlogs()
+
+
+// LESSON-27 Math object
+
+    // Math object is JS pre-created object. This Math object has got several properties and methods, all pre-made and bundled into it. We access the Math object just by saying 'Math'.
+
+    console.log(Math);
+    console.log(Math.PI);
+    console.log(Math.E);  // Euler's number
+
+    const area_27 = 7.7;
+
+    console.log(Math.round(area_27)); // Round number to the nearest integer (8)
+    console.log(Math.floor(area_27)); // Take away decimal and round down (floor) to integer (7)
+    console.log(Math.ceil(area_27));  // Take away decimal and round up (ceil) to integer (8)
+    console.log(Math.trunc(area_27)); // Take away the decimal and leave the integer (7)
+
+    // random numbers
+
+    const random_27 = Math.random();  // Decimal number between 0 - 1
+
+    console.log(random_27);
+    console.log(Math.round(random_27 * 100));
+
+
+// LESSON-28 Primitive & Reference Types
+
+    // Primitive Types: -numbers, -strings, -Booleans, -null, -undefined, -symbol
+    // Reference Types: -all types of objects: -object literals, -arrays, -functions, -dates, -all other objects
+
+    // Primitive types are stored on STACK which has small memory space and quick access
+    // Reference types are stored on HEAP which has a larger space and slower access
+
+
+    // The STACK
+
+    let scoreOne = 50;
+    const scoreTwo = scoreOne;  // Creates separate variable. It's still fifty after 'scoreOne' is updated.
+    console.log(`scoreOne: ${scoreOne}, scoreTwo: ${scoreTwo}`); // (50), (50)
+
+    scoreOne = 100;
+    console.log(`scoreOne: ${scoreOne}, scoreTwo: ${scoreTwo}`); // (100), (50)
+
+    
+    // The HEAP
+
+    const userOne = { name: 'shaun', score: 100 };  // 'userOne' use pointer to access the object and return this object back
+    const userTwo = userOne;  // Does not creates object copy. It copies the pointer to the same object.
+    console.log(userOne, userTwo);  // (score: 100) (score: 100)
+
+    userOne.score = 50;
+    console.log(userOne, userTwo);  // (score: 50) (score: 50)
+
+    // When we copy primitive type values like strings, numbers and booleans, we make a new copy of the value on the stack. When we try to make a copy of a reference type, we only make a copy of the pointer on the stack, which points to the same data on the heap. 
