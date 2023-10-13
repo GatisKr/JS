@@ -610,7 +610,7 @@
     // Callback function inside the forEach method iterates for each array element
 
     people.forEach(function(){
-        console.log('something');  // this should give (5) something
+        console.log('something');  // this should give (5) 'something'
     });
 
     // We can take parameters inside of a callback function. The first one 'mario' is whatever the value is at the time that we're iterating over. Every time we fire the function for each individual element we get that element as our first parameter. 
@@ -646,7 +646,7 @@
     const people_23 = ['mario', 'luigi', 'ryu', 'shaun', 'chun-li'];
     let html_23 = ``;  // create empty template string
 
-    people.forEach(person => {
+    people_23.forEach(person => {
 
         html_23 += `<li style="color: brown">${person}</li>`;  // create html template
 
@@ -654,7 +654,7 @@
     });
 
     console.log(html_23);
-    ul.innerHTML = html_23;  // put array elements to html
+    // ul.innerHTML = html_23;  // put array elements to html
 
 
 // OBJECTS
@@ -840,3 +840,68 @@
     console.log(userOne, userTwo);  // (score: 50) (score: 50)
 
     // When we copy primitive type values like strings, numbers and booleans, we make a new copy of the value on the stack. When we try to make a copy of a reference type, we only make a copy of the pointer on the stack, which points to the same data on the heap. 
+
+
+// THE DOCUMENT OBJECT MODEL (DOM)
+
+// LESSON-29 DOM methods querySelector(), querySelectorAll()
+
+    // querySelector() method to get single element from HTML based on CSS selector
+
+    const para = document.querySelector('p');  // grabs the 1st <p> tag in the document and ignores the rest of them
+    console.log(para);
+
+    const para2 = document.querySelector('.error');  // get <p> tag by the class of error
+    console.log(para2);
+
+    const para3 = document.querySelector('div.error'); // get 1st <div> with the class of error
+    console.log(para3);
+
+    const copySelectorFromBrowser = document.querySelector('body > div:nth-child(2) > p:nth-child(1)');  // 'hello, world'
+    console.log(copySelectorFromBrowser);
+
+
+    // querySelectorAll() method to get several elements from HTML based on CSS selector
+
+    const paras = document.querySelectorAll('p');  // get NodeList with ALL the <p> elements
+    console.log(paras);
+
+    console.log(paras[0]);  // get the 1st element of the NodeList (N.B. it is not array)
+
+    paras.forEach(para => {  // console.log each NodeList element
+        console.log(para);
+    });
+
+    const errors = document.querySelectorAll('.error');  // get all elements with '.error' class
+    console.log(errors);
+
+
+// LESSON-30 Get element by ID, class name, tag name
+
+    // get an element by ID
+
+    const title_30 = document.getElementById('page-title');  // there should be only one 'page title' ID on the page. It should be a unique value. Grabs single element. 'page-title' is used instead of '#page-title' in CSS selector.
+    console.log(title_30);
+
+
+    // get elements by their class name
+
+    const errors_30 = document.getElementsByClassName('error');  // Grabs plural elements of the class. 'error' is used instead of '.error' in CSS selector.
+    console.log(errors_30);
+
+    // What we have here is HTMLCollection, not a NodeList. Like in NodeList we can use bracket notation '[0]' to get a single element from the list.
+
+    console.log(errors_30[0]);
+
+    // We can not use forEach() method on the HTMLCollection like we do on the NodeList
+
+    // errors_30.forEach(element => {
+    //     console.log(element);
+    // });  // this will throw error 'errors_30.forEach is not a function'
+
+
+    // get elements by their tag
+
+    const paras_30 = document.getElementsByTagName('p');  // this grabs all of the <p> tags on the page and it's going to store them again inside the HTMLCollection
+    console.log(paras_30);
+    console.log(paras_30[0]);
